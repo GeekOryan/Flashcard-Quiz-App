@@ -1,0 +1,16 @@
+{
+    "question": "What is a function in Programming?",
+    "answer": "A function is a reusable block of code that performs a specific task and can be called whenever needed."
+},
+{
+    "question": "Explain the concept of a variable in Programming.",
+    "answer": "A variable is a named storage location that holds a value which can be changed during program execution."
+},
+{
+    "question": "What is the difference between a list and a dictionary in Python?",
+    "answer": "A list stores items in an ordered sequence accessed by index, while a dictionary stores key-value pairs accessed by key."
+},
+{
+    "question": "Explain what error handling is in Programming.",
+    "answer": "Error handling is the process of anticipating and managing errors gracefully so a program does not crash unexpectedly."
+}
