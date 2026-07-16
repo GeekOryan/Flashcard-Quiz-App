@@ -134,31 +134,46 @@ def main():
                         break
                     else:
                         print("Error: Invalid choice. Please enter s or sh.")
+            while True:            
+                score = 0
+                missed_questions = []
+                total_questions = len(deck_data)
                         
-            score = 0
-            missed_questions = []
-            total_questions = len(deck_data)
+                for current_card in deck_data:
+                    print(f"\nQuestion: {current_card['question']}")
                     
-            for current_card in deck_data:
-                print(f"\nQuestion: {current_card['question']}")
-                
-                user_answer = input("Your Answer: ").strip()
-                        
-                correct_answer = str(current_card["answer"]).strip()
-                        
-                if user_answer.lower() == correct_answer.lower():
-                    print("Correct!!")
-                    score += 1
-                else:
-                    print(f"Incorrect. The right answer was: {correct_answer}")
-                    missed_questions.append(current_card)
+                    user_answer = input("Your Answer: ").strip()
                             
-            print("\n--- Quiz Finished! ---")
-            print(f"Your Final Score: {score} / {total_questions}")
+                    correct_answer = str(current_card["answer"]).strip()
+                            
+                    if user_answer.lower() == correct_answer.lower():
+                        print("Correct!!")
+                        score += 1
+                    else:
+                        print(f"Incorrect. The right answer was: {correct_answer}")
+                        missed_questions.append(current_card)
+                                
+                print("\n--- Quiz Finished! ---")
+                print(f"Your Final Score: {score} / {total_questions}")
+                            
+                if total_questions > 0:
+                    percentage = (score / total_questions) * 100
+                    print(f"Percentage: {percentage:.1f}%")
+                    
+                if not missed_questions:
+                    print("Perfect score! You got every question right!")
+                    break
+                else:
+                    print("\nQuestions you missed: ")
+                    for missed_question in missed_questions:
+                        print(f"\nMissed Question: {missed_question['question']}")
                         
-            if total_questions > 0:
-                percentage = (score / total_questions) * 100
-                print(f"Percentage: {percentage:.1f}%")
+                    retry = input("Do you want to retry?\n1. Retry missed questions\n2. Back to main menu\nEnter your choice: ")
+                    if retry == '1':
+                        deck_data = missed_questions
+                        continue
+                    else:
+                        break
                     
         elif choice == '3':
             print("Goodbye!")
