@@ -92,6 +92,32 @@ def main():
                 for index, file in enumerate(deck_files, 1):
                     proper_name = file.replace(".json", "")
                     print(f"{index}. {proper_name}")
+                
+                deck_data = None
+                number_choice = input("Enter the number: ")
+                    
+                try:
+                    deck_number = int(number_choice)
+                        
+                    if 1 <= deck_number <= len(deck_files):
+                        selected_file = deck_files[deck_number - 1]
+                        print(f"Success! You chose: {selected_file}")
+                        
+                        with open(selected_file, "r", encoding="utf-8") as file:
+                            deck_data = json.load(file)
+                            
+                        print(f"Loaded {len(deck_data)} cards from '{selected_file}'!")
+                        break
+                    else:
+                        print(f"Error: Please choose a number between 1 and {len(deck_files)}.")
+                            
+                except ValueError:
+                    print("Error: Invalid input. You must type a whole number.")
+                    
+            # Debug line
+            # print("\nFirst card sample data: ", deck_data[0] if deck_data else "No data")
+            order_choice = input("Sequential or Shuffled?")
+                    
         elif choice == '3':
             print("Goodbye!")
             break
