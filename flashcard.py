@@ -38,6 +38,8 @@
 '''
 
 import random
+import json
+import os
 
 def main():
     print("Welcome to the CLI Flashcard Quiz Tool.")
@@ -51,12 +53,51 @@ def main():
         choice = input("Enter your choice (1 - 3): ")
         
         if choice == '1':
-            pass
+            deck = []
+            
+            deck_name = input("Enter the name of your deck: ")
+                
+            filename = f"{deck_name.strip().replace(' ', '_')}.json"
+            
+            while True:
+            
+                question = input("Enter the question (or 'done' to finish): ")
+        
+                if question == "done":
+                    if len(deck) < 1:
+                        print("You need at least one card before finishing. Try again.")
+                    else:
+                        break
+        
+                answer = input("Enter the answer to the question: ")
+        
+                card = {"question": question, "answer": answer}
+                deck.append(card)
+                
+            with open(filename, "w", encoding="utf-8") as file:
+                    json.dump(deck, file, indent=4)
+                    
+            print(f"Successfully saved! Deck name is '{filename}'")
+            
         elif choice == '2':
-            pass
+            all_files = os.listdir(".")
+            
+            deck_files = [file for file in all_files if file.endswith(".json")]
+            
+            if not deck_files:
+                print("No saved decks found.")
+                continue
+            else:
+                print("Available decks: ")
+                for index, file in enumerate(deck_files, 1):
+                    proper_name = file.replace(".json", "")
+                    print(f"{index}. {proper_name}")
         elif choice == '3':
             print("Goodbye!")
             break
         else:
             print("Invalid choice. Please try again.")
-        
+            
+            
+if __name__ == "__main__":
+    main()
