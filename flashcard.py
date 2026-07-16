@@ -107,7 +107,6 @@ def main():
                             deck_data = json.load(file)
                             
                         print(f"Loaded {len(deck_data)} cards from '{selected_file}'!")
-                        break
                     else:
                         print(f"Error: Please choose a number between 1 and {len(deck_files)}.")
                             
@@ -116,7 +115,50 @@ def main():
                     
             # Debug line
             # print("\nFirst card sample data: ", deck_data[0] if deck_data else "No data")
-            order_choice = input("Sequential or Shuffled?")
+            
+            if deck_data and len(deck_data) > 0:
+                while True:
+                    print("\nHow would you like to play?")
+                    print("Shuffled (Random order)")
+                    print("Sequential (Original order)")
+                    
+                    
+                    order_choice = input("Sequential or Shuffled? (s/sh): ").strip()
+                    
+                    if order_choice.lower() == "sh":
+                        random.shuffle(deck_data)
+                        print("Deck successfully shuffled!")
+                        break
+                    elif order_choice.lower() == "s":
+                        print("Deck kept in sequential order.")
+                        break
+                    else:
+                        print("Error: Invalid choice. Please enter s or sh.")
+                        
+            score = 0
+            missed_questions = []
+            total_questions = len(deck_data)
+                    
+            for current_card in deck_data:
+                print(f"\nQuestion: {current_card['question']}")
+                
+                user_answer = input("Your Answer: ").strip()
+                        
+                correct_answer = str(current_card["answer"]).strip()
+                        
+                if user_answer.lower() == correct_answer.lower():
+                    print("Correct!!")
+                    score += 1
+                else:
+                    print(f"Incorrect. The right answer was: {correct_answer}")
+                    missed_questions.append(current_card)
+                            
+            print("\n--- Quiz Finished! ---")
+            print(f"Your Final Score: {score} / {total_questions}")
+                        
+            if total_questions > 0:
+                percentage = (score / total_questions) * 100
+                print(f"Percentage: {percentage:.1f}%")
                     
         elif choice == '3':
             print("Goodbye!")
